@@ -2,120 +2,114 @@ name: Build and Release Android APK
 
 on:
   push:
-    branches:
-      - main
-    tags:
-      - 'v*'
+    branches: [ main, master ]
+    tags: [ 'v*' ]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up Java JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Android Build Tools
+      - name: Accept Android SDK Licenses & Install Build Tools
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
 
-      - name: Prepare Web Assets & Copy for AAPT
+      - name: Build Unsigned APK
         run: |
-          mkdir -p assets/web
+          mkdir -p build/gen build/obj build/bin assets/web
           cp -r web/* assets/
           cp -r web/* assets/web/
-          ls -la assets/
-          ls -la assets/web/
-
-      - name: Compile Resources with AAPT
-        run: |
+          export ANDROID_JAR=$ANDROID_HOME/platforms/android-34/android.jar
+          
+          echo "=== 1. Compiling Android Resources ==="
           $ANDROID_HOME/build-tools/34.0.0/aapt package -f -m \
-            -J android/app/src/main/java \
+            -J build/gen \
             -M android/app/src/main/AndroidManifest.xml \
             -S android/app/src/main/res \
-            -I $ANDROID_HOME/platforms/android-34/android.jar \
-            -A assets \
-            -F compiled.ap_
-
-      - name: Compile Java Code
-        run: |
-          mkdir -p bin/classes
-          javac -d bin/classes \
-            -classpath $ANDROID_HOME/platforms/android-34/android.jar \
-            $(find android/app/src/main/java -name "*.java")
-
-      - name: Convert Java Bytecode to DEX with D8
-        run: |
-          $ANDROID_HOME/build-tools/34.0.0/d8 \
-            --output bin/ \
-            --lib $ANDROID_HOME/platforms/android-34/android.jar \
-            $(find bin/classes -name "*.class")
-
-      - name: Package Unaligned APK
-        run: |
-          cd bin
-          cp ../compiled.ap_ unaligned.apk
-          zip -g unaligned.apk classes.dex
-
-      - name: ZipAlign APK (4-byte alignment)
-        run: |
-          $ANDROID_HOME/build-tools/34.0.0/zipalign -v 4 bin/unaligned.apk bin/aligned.apk
-
-      - name: Create Keystore & Sign APK with apksigner (V1, V2, V3 enabled)
-        run: |
-          keytool -genkey -v -keystore release.keystore \
-            -alias makkalnalan -keyalg RSA -keysize 2048 -validity 10000 \
-            -dname "CN=Makkal Nalan, OU=CitizenAI, O=Apravint, L=Chennai, S=TN, C=IN" \
-            -storepass android -keypass android
+            -I $ANDROID_JAR
           
+          echo "=== 2. Compiling Java Source Files ==="
+          find android/app/src/main/java build/gen -name "*.java" > sources.txt
+          javac -d build/obj \
+            -classpath $ANDROID_JAR \
+            -source 1.8 -target 1.8 \
+            @sources.txt
+          
+          echo "=== 3. Converting Bytecode to DEX ==="
+          find build/obj -name "*.class" > classes.txt
+          $ANDROID_HOME/build-tools/34.0.0/d8 \
+            --output build/bin/ \
+            --lib $ANDROID_JAR \
+            $(cat classes.txt)
+          
+          echo "=== 4. Packaging Unaligned APK ==="
+          $ANDROID_HOME/build-tools/34.0.0/aapt package -f \
+            -M android/app/src/main/AndroidManifest.xml \
+            -S android/app/src/main/res \
+            -A assets \
+            -I $ANDROID_JAR \
+            -F build/bin/unaligned.apk build/bin/
+
+      - name: ZipAlign & Sign APK
+        run: |
+          echo "=== 1. ZipAligning APK to 4-byte boundary ==="
+          $ANDROID_HOME/build-tools/34.0.0/zipalign -v 4 build/bin/unaligned.apk build/bin/aligned.apk
+
+          echo "=== 2. Creating Keystore ==="
+          keytool -genkey -v -keystore release.keystore \
+            -alias makkalnalan \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass android -keypass android \
+            -dname "CN=AyyappaPravin, OU=CitizenAI, O=MakkalNalan, L=Chennai, S=TN, C=IN"
+          
+          echo "=== 3. Signing APK with V1/V2/V3 schemes ==="
           $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
             --ks release.keystore \
             --ks-pass pass:android \
             --key-pass pass:android \
-            --out bin/MakkalNalan.apk \
             --v1-signing-enabled true \
             --v2-signing-enabled true \
             --v3-signing-enabled true \
-            bin/aligned.apk
+            --out MakkalNalan.apk \
+            build/bin/aligned.apk
+          
+          echo "=== 4. Verifying Signed APK ==="
+          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --verbose MakkalNalan.apk
 
-      - name: Verify Signed APK
-        run: |
-          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --verbose bin/MakkalNalan.apk
-
-      - name: Upload Build Artifact
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MakkalNalan-APK
-          path: bin/MakkalNalan.apk
+          path: MakkalNalan.apk
 
-      - name: Create GitHub Release and Upload APK
+      - name: Release APK
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
         with:
-          name: "Makkal Nalan AI v1.0.0"
-          tag_name: "v1.0.0"
+          tag_name: "v1.0.1"
+          files: MakkalNalan.apk
+          name: "Makkal Nalan AI v1.0.1"
           body: |
-            ## 🏛️ Makkal Nalan AI - Citizen Welfare & Scheme Navigator v1.0.0 (மக்கள் நலன்)
-
-            ### 🌟 Key Features:
-            - **Bilingual Interface**: Seamless toggle between தமிழ் (Tamil) and English.
-            - **Comprehensive Verified Schemes**: Covers higher education assistance (Pudhumai Penn, Tamil Pudhalvan), women rights entitlements (Kalaignar Magalir Urimai Thogai), farmer income support (PM-Kisan), cashless healthcare (CMCHIS up to ₹5 Lakhs), old-age pensions, and MUDRA micro-business loans.
-            - **4-Question Eligibility Checker**: Instant matching engine based on age, occupation, income, and state.
-            - **Interactive Document Readiness Checklist**: Tracks preparation for Aadhaar, Ration Card, Income, Community, and Nativity certificates.
-            - **Text-to-Speech (Audio Reader)**: Web Speech synthesis in Tamil (`ta-IN`) and English (`en-IN`) for elder and vision-impaired citizens.
-            - **e-Sevai & Helpline Guidance**: Direct touchpoints for CSC centers and CM Helpline 1100.
-            - **Universal Installation Ready**: 4-byte ZipAligned & signed with V1, V2, and V3 signatures for Android 7.0 - 15+.
-          files: |
-            bin/MakkalNalan.apk
+            ## 🏛️ Makkal Nalan AI - Universal Compatibility Release v1.0.1 (மக்கள் நலன்)
+            
+            Fixed device compatibility across all modern Android versions (Android 7.0 - 15+):
+            - **Explicit SDK Versioning**: `minSdkVersion="24"`, `targetSdkVersion="34"`.
+            - **Clean DEX Packaging**: Recompiled bytecode with Java 8 compatibility and D8 Dexing.
+            - **Full V1, V2, and V3 Dual Scheme Signatures**: 4-byte ZipAligned.
+            - **Bilingual Interface**: தமிழ் (Tamil) and English.
+            - **100% Offline & Universal Ready**.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
