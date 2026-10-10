@@ -1,0 +1,121 @@
+name: Build and Release Android APK
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Android Build Tools
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34"
+
+      - name: Prepare Web Assets & Copy for AAPT
+        run: |
+          mkdir -p assets/web
+          cp -r web/* assets/
+          cp -r web/* assets/web/
+          ls -la assets/
+          ls -la assets/web/
+
+      - name: Compile Resources with AAPT
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/aapt package -f -m \
+            -J android/app/src/main/java \
+            -M android/app/src/main/AndroidManifest.xml \
+            -S android/app/src/main/res \
+            -I $ANDROID_HOME/platforms/android-34/android.jar \
+            -A assets \
+            -F compiled.ap_
+
+      - name: Compile Java Code
+        run: |
+          mkdir -p bin/classes
+          javac -d bin/classes \
+            -classpath $ANDROID_HOME/platforms/android-34/android.jar \
+            $(find android/app/src/main/java -name "*.java")
+
+      - name: Convert Java Bytecode to DEX with D8
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/d8 \
+            --output bin/ \
+            --lib $ANDROID_HOME/platforms/android-34/android.jar \
+            $(find bin/classes -name "*.class")
+
+      - name: Package Unaligned APK
+        run: |
+          cd bin
+          cp ../compiled.ap_ unaligned.apk
+          zip -g unaligned.apk classes.dex
+
+      - name: ZipAlign APK (4-byte alignment)
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/zipalign -v 4 bin/unaligned.apk bin/aligned.apk
+
+      - name: Create Keystore & Sign APK with apksigner (V1, V2, V3 enabled)
+        run: |
+          keytool -genkey -v -keystore release.keystore \
+            -alias makkalnalan -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=Makkal Nalan, OU=CitizenAI, O=Apravint, L=Chennai, S=TN, C=IN" \
+            -storepass android -keypass android
+          
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+            --ks release.keystore \
+            --ks-pass pass:android \
+            --key-pass pass:android \
+            --out bin/MakkalNalan.apk \
+            --v1-signing-enabled true \
+            --v2-signing-enabled true \
+            --v3-signing-enabled true \
+            bin/aligned.apk
+
+      - name: Verify Signed APK
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --verbose bin/MakkalNalan.apk
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MakkalNalan-APK
+          path: bin/MakkalNalan.apk
+
+      - name: Create GitHub Release and Upload APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
+        with:
+          name: "Makkal Nalan AI v1.0.0"
+          tag_name: "v1.0.0"
+          body: |
+            ## 🏛️ Makkal Nalan AI - Citizen Welfare & Scheme Navigator v1.0.0 (மக்கள் நலன்)
+
+            ### 🌟 Key Features:
+            - **Bilingual Interface**: Seamless toggle between தமிழ் (Tamil) and English.
+            - **Comprehensive Verified Schemes**: Covers higher education assistance (Pudhumai Penn, Tamil Pudhalvan), women rights entitlements (Kalaignar Magalir Urimai Thogai), farmer income support (PM-Kisan), cashless healthcare (CMCHIS up to ₹5 Lakhs), old-age pensions, and MUDRA micro-business loans.
+            - **4-Question Eligibility Checker**: Instant matching engine based on age, occupation, income, and state.
+            - **Interactive Document Readiness Checklist**: Tracks preparation for Aadhaar, Ration Card, Income, Community, and Nativity certificates.
+            - **Text-to-Speech (Audio Reader)**: Web Speech synthesis in Tamil (`ta-IN`) and English (`en-IN`) for elder and vision-impaired citizens.
+            - **e-Sevai & Helpline Guidance**: Direct touchpoints for CSC centers and CM Helpline 1100.
+            - **Universal Installation Ready**: 4-byte ZipAligned & signed with V1, V2, and V3 signatures for Android 7.0 - 15+.
+          files: |
+            bin/MakkalNalan.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
