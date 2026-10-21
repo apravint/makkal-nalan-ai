@@ -132,6 +132,166 @@ const SCHEMES_DB = [
         docs: ["Community Certificate", "Income Certificate", "Aadhaar Card", "10th & 12th Marksheets", "Bank Passbook"],
         apply_url: "https://scholarships.gov.in",
         min_age: 15, max_age: 30, income_limit: "low"
+    },
+    {
+        id: "kanavu-illam",
+        category: "housing",
+        target: "all",
+        title_en: "Kalaignar Kanavu Illam Scheme (Rural Concrete Housing)",
+        title_ta: "கலைஞர் கனவு இல்லம் திட்டம் (கிராமப்புற கான்கிரீட் வீடு)",
+        benefit_en: "₹3,50,000 direct grant to build permanent concrete house",
+        benefit_ta: "நிரந்தர கான்கிரீட் வீடு கட்ட ₹3,50,000 நேரடி மானிய உதவி",
+        desc_en: "State government initiative to transform rural huts and thatched roof houses into permanent, climate-resilient concrete houses.",
+        desc_ta: "கிராமப்புறங்களில் உள்ள குடிசைகளை மாற்றி கான்கிரீட் வீடுகளாக கட்டித் தரும் வரலாற்றுச் சிறப்புமிக்க திட்டம்.",
+        eligibility_en: "Rural families owning hut/kutcha house with patta; annual family income under ₹1,20,000.",
+        eligibility_ta: "சொந்த பட்டா நிலத்தில் குடிசை வீட்டில் வசிக்கும் ஏழை எளிய கிராமப்புற குடும்பங்கள்.",
+        docs: ["Aadhaar Card", "Land Patta / Chitta", "Smart Family Ration Card", "VAO Hut Verification Certificate", "Bank Passbook"],
+        apply_url: "https://tnrd.tn.gov.in",
+        min_age: 18, max_age: 99, income_limit: "bpl"
+    },
+    {
+        id: "makkalai-thedi",
+        category: "health",
+        target: "all",
+        title_en: "Makkalai Thedi Maruthuvam (Doorstep Healthcare Delivery)",
+        title_ta: "மக்களைத் தேடி மருத்துவம் திட்டம்",
+        benefit_en: "Free doorstep medical screening & monthly chronic medicine kits",
+        benefit_ta: "வீட்டுக்கே வந்து மருத்துவப் பரிசோதனை மற்றும் இலவச மருந்து பெட்டகம்",
+        desc_en: "Healthcare workers deliver screening for hypertension, diabetes, and palliative care medicines directly to citizens' doorsteps.",
+        desc_ta: "ரத்த அழுத்தம், சர்க்கரை நோய் மற்றும் பிசியோதெரபி மருந்துகளுடன் செவிலியர்கள் நேரடியாக வீட்டு வாசலுக்கே வரும் சேவை.",
+        eligibility_en: "All citizens aged 45+ or patients requiring non-communicable disease and palliative care.",
+        eligibility_ta: "45 வயதுக்கு மேற்பட்டவர்கள் மற்றும் நாள்பட்ட நோய்களுக்கு சிகிச்சை தேவைப்படும் அனைத்து பொதுமக்கள்.",
+        docs: ["Aadhaar Card", "Existing Medical Records / Prescription", "Ration Card"],
+        apply_url: "https://nhm.tn.gov.in",
+        min_age: 0, max_age: 99, income_limit: "all"
+    },
+    {
+        id: "selvamagal",
+        category: "students",
+        target: "student",
+        title_en: "Selvamagal Semippu Thittam (Sukanya Samriddhi Yojana)",
+        title_ta: "செல்வமகள் சேமிப்புத் திட்டம் (சுகன்யா சம்ரிதி யோஜனா)",
+        benefit_en: "8.2% Compound Interest + Tax-Free Higher Education & Marriage Fund",
+        benefit_ta: "8.2% கூடுதல் வட்டி + வரிவிலக்குடன் கூடிய கல்வி & திருமண நிதி",
+        desc_en: "Government-backed high-interest savings scheme by India Post for girl children ensuring guaranteed funds for university education.",
+        desc_ta: "பெண் குழந்தைகளின் எதிர்கால உயர் படிப்பு மற்றும் திருமணத்திற்காக தபால் நிலையங்களில் அதிக வட்டி தரும் சேமிப்பு திட்டம்.",
+        eligibility_en: "Girl children aged 0 to 10 years opened by legal parents or guardians.",
+        eligibility_ta: "10 வயதிற்கு உட்பட்ட பெண் குழந்தைகள் பெயரில் பெற்றோர்கள் தபால் நிலையத்தில் தொடங்கலாம்.",
+        docs: ["Child Birth Certificate", "Parent Aadhaar Card", "Address Proof", "Passport Size Photos"],
+        apply_url: "https://www.ippbonline.com",
+        min_age: 0, max_age: 10, income_limit: "all"
+    },
+    {
+        id: "pm-vishwakarma",
+        category: "business",
+        target: "business",
+        title_en: "PM Vishwakarma Scheme (Traditional Artisans & Craftspeople)",
+        title_ta: "பிரதமர் விஸ்வகர்மா திட்டம் (கைவினைக் கலைஞர்கள்)",
+        benefit_en: "₹15,000 modern toolkit grant + Subsidized loan up to ₹3,00,000 at 5%",
+        benefit_ta: "₹15,000 உபகரண மானியம் + 5% குறைந்த வட்டியில் ₹3,00,000 வரை பிணையில்லா கடன்",
+        desc_en: "Supporting 18 traditional trades (carpenters, blacksmiths, goldsmiths, potters, tailors) with modern toolkits, certification, and collateral-free credit.",
+        desc_ta: "தச்சர், பொற்கொல்லர், குயவர், தையல்காரர் உள்ளிட்ட 18 பாரம்பரிய கைவினைஞர்களுக்கு நவீன உபகரணம் மற்றும் குறைந்த வட்டிக் கடன்.",
+        eligibility_en: "Artisans engaged in one of the 18 specified trades on self-employment basis; minimum age 18.",
+        eligibility_ta: "பாரம்பரிய தொழில் அல்லது கைவினை வேலை செய்யும் 18 வயது நிரம்பிய சுயதொழில் தொழிலாளர்கள்.",
+        docs: ["Aadhaar Card", "Bank Account Details", "Mobile Number linked with Aadhaar", "Trade Skill Proof"],
+        apply_url: "https://pmvishwakarma.gov.in",
+        min_age: 18, max_age: 70, income_limit: "all"
+    },
+    {
+        id: "thalikku-thangam",
+        category: "women",
+        target: "woman",
+        title_en: "Moovalur Ramamirtham Marriage Assistance (Thalikku Thangam)",
+        title_ta: "திருமண நிதி உதவி மற்றும் தாலிக்கு தங்கம் திட்டம்",
+        benefit_en: "₹25,000 / ₹50,000 Cash Assistance + 8 Grams (1 Sovereign) 22K Gold Coin",
+        benefit_ta: "₹25,000 / ₹50,000 நிதியுதவி + 8 கிராம் (1 பவுன்) தங்க நாணயம்",
+        desc_en: "Financial assistance and pure gold coin provided to poor daughters of underprivileged families at the time of marriage.",
+        desc_ta: "ஏழைப் பெண்களின் திருமணத்திற்கு உதவும் வகையில் ரொக்கத் தொகை மற்றும் திருமாங்கல்யத்திற்கான தங்க நாணயம் வழங்கும் திட்டம்.",
+        eligibility_en: "Brides aged 18+; educational qualification: 10th pass (₹25k) or Degree/Diploma holder (₹50k); parental annual income under ₹72,000.",
+        eligibility_ta: "18 வயது நிரம்பிய மணப்பெண்; 10-ஆம் வகுப்பு அல்லது பட்டப்படிப்பு முடித்திருக்க வேண்டும்; குடும்ப வருமானம் ₹72,000-க்குள் இருக்க வேண்டும்.",
+        docs: ["Aadhaar Card", "10th / Degree Marksheet", "Income Certificate", "Wedding Invitation & Hall Proof", "Bank Passbook"],
+        apply_url: "https://tnesevai.tn.gov.in",
+        min_age: 18, max_age: 40, income_limit: "low"
+    },
+    {
+        id: "pmay-housing",
+        category: "housing",
+        target: "all",
+        title_en: "Pradhan Mantri Awas Yojana (PMAY / Housing for All)",
+        title_ta: "பிரதமர் ஆவாஸ் யோஜனா (அனைவருக்கும் வீடு திட்டம்)",
+        benefit_en: "₹1,20,000 to ₹2,67,000 interest subsidy and construction grant",
+        benefit_ta: "வீடு கட்ட ₹1,20,000 முதல் ₹2,67,000 வரை நேரடி மானிய உதவி",
+        desc_en: "Provides financial assistance to eligible homeless and kutcha-house families for construction of pucca houses with electricity and sanitation.",
+        desc_ta: "சொந்த வீடு இல்லாத குடும்பங்களுக்கு கான்கிரீட் வீடுகள் கட்ட மத்திய-மாநில அரசுகளின் மானியத் திட்டம்.",
+        eligibility_en: "Families without a pucca house in any part of India; annual household income below threshold.",
+        eligibility_ta: "இந்தியாவில் எங்கும் சொந்த கான்கிரீட் வீடு இல்லாத ஏழை எளிய குடும்பங்கள்.",
+        docs: ["Aadhaar Card", "Ration Card", "Land Record / Affidavit", "Bank Passbook (Aadhaar linked)", "MGNREGA Job Card"],
+        apply_url: "https://pmayg.nic.in",
+        min_age: 18, max_age: 99, income_limit: "low"
+    },
+    {
+        id: "aabcs-entrepreneur",
+        category: "business",
+        target: "business",
+        title_en: "Annal Ambedkar Business Champions Scheme (AABCS)",
+        title_ta: "அண்ணல் அம்பேத்கர் தொழில் முன்னோடிகள் திட்டம் (AABCS)",
+        benefit_en: "35% Capital Subsidy (up to ₹1.5 Crore) + 6% Interest Rebate",
+        benefit_ta: "35% நேரடி மூலதன மானியம் (₹1.5 கோடி வரை) + 6% வட்டி மானியம்",
+        desc_en: "Empowers aspiring Scheduled Caste and Scheduled Tribe entrepreneurs to launch manufacturing, service, and trading businesses with major capital grants.",
+        desc_ta: "ஆதிதிராவிடர் மற்றும் பழங்குடியின இளைஞர்கள் சொந்தமாக தொழில் தொடங்க 35% மூலதன மானியம் வழங்கும் திட்டம்.",
+        eligibility_en: "SC/ST entrepreneurs starting new enterprises or expanding existing units in Tamil Nadu.",
+        eligibility_ta: "தமிழ்நாட்டில் புதிய தொழில் தொடங்க விரும்பும் SC/ST பிரிவைச் சேர்ந்த தொழில்முனைவோர்.",
+        docs: ["Community Certificate", "Aadhaar Card", "Project Report (Detailed DPR)", "Educational Qualification", "Bank Account"],
+        apply_url: "https://msmeonline.tn.gov.in",
+        min_age: 18, max_age: 55, income_limit: "all"
+    },
+    {
+        id: "vidiyal-payanam",
+        category: "women",
+        target: "woman",
+        title_en: "Zero-Fare Bus Travel for Women (Vidiyal Payanam)",
+        title_ta: "மகளிர் இலவச பேருந்து விடியல் பயணம்",
+        benefit_en: "100% Free Travel in Government Town Buses across Tamil Nadu",
+        benefit_ta: "தமிழக அரசு நகரப் பேருந்துகளில் 100% கட்டணமில்லா இலவச பயணம்",
+        desc_en: "Empowers women workers, students, and mothers with complete travel freedom across ordinary fare town buses throughout the state.",
+        desc_ta: "பணிக்குச் செல்லும் பெண்கள் மற்றும் கல்லூரி மாணவிகளின் பொருளாதார சுமையைக் குறைக்க பேருந்துகளில் இலவச பயணம்.",
+        eligibility_en: "All women, transwomen, and differently abled persons travelling on state transport town buses.",
+        eligibility_ta: "அனைத்து பெண்கள், திருநங்கையர் மற்றும் மாற்றுத்திறனாளிகள்.",
+        docs: ["No Document Required (Direct Boarding)", "Aadhaar / ID Card if requested by conductor"],
+        apply_url: "https://arasubus.tn.gov.in",
+        min_age: 5, max_age: 99, income_limit: "all"
+    },
+    {
+        id: "illam-thedi-kalvi",
+        category: "students",
+        target: "student",
+        title_en: "Illam Thedi Kalvi (Doorstep Community Tutoring)",
+        title_ta: "இல்லம் தேடிக் கல்வித் திட்டம்",
+        benefit_en: "Free 1.5 Hours Daily Doorstep Academic Coaching & Learning Kits",
+        benefit_ta: "தினமும் மாலை 1.5 மணி நேரம் வீட்டுக்கருகே இலவச கற்பித்தல் & கல்விப் பொருட்கள்",
+        desc_en: "Community volunteers provide localized supplementary learning for school children (Classes 1 to 8) to strengthen foundational literacy and numeracy.",
+        desc_ta: "1 முதல் 8-ஆம் வகுப்பு வரை படிக்கும் அரசுப் பள்ளி மாணவர்களுக்கு வீட்டுக்கு அருகிலேயே மாலை நேர இலவச கல்வி பயிற்சி.",
+        eligibility_en: "School students studying in Classes 1 to 8 in Tamil Nadu.",
+        eligibility_ta: "1 முதல் 8-ஆம் வகுப்பு வரை பயிலும் பள்ளி மாணவர்கள்.",
+        docs: ["School Enrollment Proof", "Parent Contact Details"],
+        apply_url: "https://illamthedikalvi.tnschools.gov.in",
+        min_age: 5, max_age: 14, income_limit: "all"
+    },
+    {
+        id: "differently-abled-pension",
+        category: "special",
+        target: "disabled",
+        title_en: "Differently Abled Maintenance Allowance Scheme",
+        title_ta: "மாற்றுத்திறனாளிகள் மாதாந்திர பராமரிப்பு உதவித் திட்டம்",
+        benefit_en: "₹2,000 per month (Direct Bank Transfer) + Free Assistive Devices",
+        benefit_ta: "மாதந்தோறும் ₹2,000 வங்கி கணக்கில் + இலவச உதவி உபகரணங்கள்",
+        desc_en: "Financial security provided to persons with severe disabilities along with free battery wheelchairs and customized tricycles.",
+        desc_ta: "கடுமையான மாற்றுத்திறன் கொண்ட நபர்களுக்கு மாதாந்திர பராமரிப்பு நிதி ₹2,000 மற்றும் பேட்டரி சக்கர நாற்காலிகள் வழங்கும் திட்டம்.",
+        eligibility_en: "Persons with disability percentage of 40% or above (UDID card holder); no income restriction.",
+        eligibility_ta: "40% அல்லது அதற்கு மேற்பட்ட மாற்றுத்திறன் சான்றிதழ் (UDID) உள்ள அனைத்து நபர்கள்.",
+        docs: ["Unique Disability ID (UDID) Card", "Disability Medical Certificate", "Aadhaar Card", "Bank Passbook"],
+        apply_url: "https://www.scd.tn.gov.in",
+        min_age: 0, max_age: 99, income_limit: "all"
     }
 ];
 
@@ -151,7 +311,10 @@ const I18N = {
         cat_women: "👩 Women & Mothers",
         cat_seniors: "👴 Senior Citizens & Pension",
         cat_health: "🏥 Healthcare & Insurance",
+        cat_housing: "🏡 Housing & Grants",
         cat_business: "💼 Small Business & Mudra",
+        cat_special: "♿ Differently Abled",
+        cat_saved: "⭐ Saved Schemes",
         quiz_title: "Instant Scheme Eligibility Checker",
         quiz_sub: "Answer 4 quick questions to find every government scheme you are entitled to",
         quiz_q_age: "1. What is your age group?",
@@ -169,7 +332,8 @@ const I18N = {
         modal_docs: "Required Documents:",
         btn_listen: "Listen",
         btn_apply: "Apply Online ➔",
-        view_details: "View Details & Apply ➔"
+        view_details: "View Details & Apply ➔",
+        saved_empty: "No saved schemes yet. Click the bookmark icon on any scheme to pin it here!"
     },
     ta: {
         brandSubtitle: "மக்கள் நலன் & அரசுத் திட்டங்கள் வழிகாட்டி",
@@ -185,7 +349,10 @@ const I18N = {
         cat_women: "👩 மகளிர் நலன்",
         cat_seniors: "👴 முதியோர் ஓய்வூதியம்",
         cat_health: "🏥 மருத்துவக் காப்பீடு",
+        cat_housing: "🏡 வீட்டு வசதி & மானியம்",
         cat_business: "💼 சிறுதொழில் முத்ரா கடன்",
+        cat_special: "♿ மாற்றுத்திறனாளிகள்",
+        cat_saved: "⭐ சேமித்த திட்டங்கள்",
         quiz_title: "உங்களுக்கான அரசுத் திட்டங்களை கண்டறியுங்கள்",
         quiz_sub: "4 எளிய கேள்விகளுக்கு பதிலளித்து நீங்கள் பெறக்கூடிய அனைத்து சலுகைகளையும் தெரிந்து கொள்ளுங்கள்",
         quiz_q_age: "1. உங்கள் வயது வரம்பு:",
@@ -203,7 +370,8 @@ const I18N = {
         modal_docs: "தேவையான ஆவணங்கள்:",
         btn_listen: "வாசித்துக் காட்டு",
         btn_apply: "விண்ணப்பிக்கவும் ➔",
-        view_details: "முழு விவரம் & விண்ணப்பம் ➔"
+        view_details: "முழு விவரம் & விண்ணப்பம் ➔",
+        saved_empty: "இன்னும் எந்த திட்டமும் சேமிக்கப்படவில்லை. புக்மார்க் குறியீட்டை அழுத்தி இங்கே சேமியுங்கள்!"
     }
 };
 
@@ -220,7 +388,58 @@ document.addEventListener("DOMContentLoaded", () => {
     initQuiz();
     initDocsChecklist();
     initModal();
+    initPWA();
 });
+
+function initPWA() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+        });
+    }
+}
+
+/* Bookmarking Store */
+function getSavedBookmarks() {
+    try {
+        return JSON.parse(localStorage.getItem("makkal_bookmarks")) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function isBookmarked(id) {
+    return getSavedBookmarks().includes(id);
+}
+
+function toggleBookmark(id) {
+    let bookmarks = getSavedBookmarks();
+    if (bookmarks.includes(id)) {
+        bookmarks = bookmarks.filter(b => b !== id);
+    } else {
+        bookmarks.push(id);
+    }
+    localStorage.setItem("makkal_bookmarks", JSON.stringify(bookmarks));
+    triggerHaptic();
+    if (activeModalScheme && activeModalScheme.id === id) {
+        updateModalBookmarkBtn(id);
+    }
+    renderSchemes(getFilteredSchemes());
+}
+
+function updateModalBookmarkBtn(id) {
+    const btn = document.getElementById("bookmarkModalBtn");
+    const txt = document.getElementById("bookmarkBtnText");
+    if (!btn || !txt) return;
+    const saved = isBookmarked(id);
+    if (saved) {
+        btn.classList.add("bookmarked");
+        txt.textContent = currentLang === "ta" ? "சேமிக்கப்பட்டது" : "Saved";
+    } else {
+        btn.classList.remove("bookmarked");
+        txt.textContent = currentLang === "ta" ? "சேமி" : "Save";
+    }
+}
 
 /* Language Handling */
 function initLanguage() {
@@ -295,7 +514,12 @@ function renderSchemes(schemes, containerId = "schemesGrid") {
     container.innerHTML = "";
 
     if (schemes.length === 0) {
-        container.innerHTML = `<div class="card" style="grid-column: span 2; text-align: center; color: var(--text-secondary);"><p>No matching schemes found. Try a different search keyword or category.</p></div>`;
+        const emptyMsg = currentCategory === "saved" 
+            ? I18N[currentLang].saved_empty 
+            : (currentLang === "ta" 
+                ? "பொருந்தக்கூடிய திட்டங்கள் எதுவும் இல்லை. வேறு வார்த்தையைத் தேடுங்கள்." 
+                : "No matching schemes found. Try a different search keyword or category.");
+        container.innerHTML = `<div class="card" style="grid-column: span 2; text-align: center; color: var(--text-secondary); padding: 32px;"><p>${emptyMsg}</p></div>`;
         return;
     }
 
@@ -304,6 +528,7 @@ function renderSchemes(schemes, containerId = "schemesGrid") {
         const benefit = currentLang === "ta" ? s.benefit_ta : s.benefit_en;
         const desc = currentLang === "ta" ? s.desc_ta : s.desc_en;
         const viewTxt = I18N[currentLang].view_details;
+        const saved = isBookmarked(s.id);
 
         const card = document.createElement("div");
         card.className = "scheme-card";
@@ -311,7 +536,12 @@ function renderSchemes(schemes, containerId = "schemesGrid") {
             <div>
                 <div class="scheme-header">
                     <h3 class="scheme-title">${title}</h3>
-                    <span class="tag">${s.category.toUpperCase()}</span>
+                    <div class="scheme-header-actions">
+                        <button class="card-bookmark-btn ${saved ? 'active' : ''}" title="Save Scheme" data-id="${s.id}">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                        </button>
+                        <span class="tag">${s.category.toUpperCase()}</span>
+                    </div>
                 </div>
                 <div class="benefit-badge">✨ ${benefit}</div>
                 <p class="scheme-desc">${desc}</p>
@@ -320,6 +550,12 @@ function renderSchemes(schemes, containerId = "schemesGrid") {
                 <span class="view-details-link">${viewTxt}</span>
             </div>
         `;
+
+        const bookmarkBtn = card.querySelector(".card-bookmark-btn");
+        bookmarkBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleBookmark(s.id);
+        });
 
         card.addEventListener("click", () => {
             openSchemeModal(s);
@@ -333,7 +569,9 @@ function renderSchemes(schemes, containerId = "schemesGrid") {
 function getFilteredSchemes() {
     const query = document.getElementById("schemeSearchInput").value.toLowerCase().trim();
     return SCHEMES_DB.filter(s => {
-        const matchesCat = currentCategory === "all" || s.category === currentCategory;
+        const matchesCat = currentCategory === "all" 
+            ? true 
+            : (currentCategory === "saved" ? isBookmarked(s.id) : s.category === currentCategory);
         const matchesQuery = !query || 
             s.title_en.toLowerCase().includes(query) || 
             s.title_ta.toLowerCase().includes(query) ||
@@ -435,11 +673,26 @@ function initModal() {
     const closeBtn = document.getElementById("closeModalBtn");
     const speakBtn = document.getElementById("speakModalBtn");
     const whatsappBtn = document.getElementById("shareModalWhatsappBtn");
+    const bookmarkBtn = document.getElementById("bookmarkModalBtn");
+    const printBtn = document.getElementById("printModalBtn");
 
     closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
     modal.addEventListener("click", (e) => {
         if (e.target === modal) modal.classList.add("hidden");
     });
+
+    if (bookmarkBtn) {
+        bookmarkBtn.addEventListener("click", () => {
+            if (!activeModalScheme) return;
+            toggleBookmark(activeModalScheme.id);
+        });
+    }
+
+    if (printBtn) {
+        printBtn.addEventListener("click", () => {
+            window.print();
+        });
+    }
 
     speakBtn.addEventListener("click", () => {
         if (!activeModalScheme) return;
@@ -476,6 +729,8 @@ function openSchemeModal(s) {
     document.getElementById("modalDesc").textContent = desc;
     document.getElementById("modalEligibility").textContent = elig;
     document.getElementById("modalApplyLink").href = s.apply_url;
+
+    updateModalBookmarkBtn(s.id);
 
     const docsList = document.getElementById("modalDocsList");
     docsList.innerHTML = "";

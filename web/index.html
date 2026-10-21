@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Makkal Nalan AI - Citizen Welfare & Schemes Navigator</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0f1d">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" href="icon-192.png">
     <!-- Google Fonts: Outfit & Noto Sans Tamil -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,7 +80,10 @@
                         <button class="pill" data-category="women" data-i18n="cat_women">👩 Women & Mothers</button>
                         <button class="pill" data-category="seniors" data-i18n="cat_seniors">👴 Senior Citizens & Pension</button>
                         <button class="pill" data-category="health" data-i18n="cat_health">🏥 Healthcare & Insurance</button>
+                        <button class="pill" data-category="housing" data-i18n="cat_housing">🏡 Housing & Grants</button>
                         <button class="pill" data-category="business" data-i18n="cat_business">💼 Small Business & Mudra</button>
+                        <button class="pill" data-category="special" data-i18n="cat_special">♿ Differently Abled</button>
+                        <button class="pill" data-category="saved" data-i18n="cat_saved">⭐ Saved Schemes</button>
                     </div>
                 </div>
 
@@ -279,6 +286,14 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button id="bookmarkModalBtn" class="btn btn-secondary btn-sm" title="Save / Bookmark Scheme">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    <span id="bookmarkBtnText">Save</span>
+                </button>
+                <button id="printModalBtn" class="btn btn-secondary btn-sm" title="Print Application Checklist">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span>Print Slip</span>
+                </button>
                 <button id="speakModalBtn" class="btn btn-secondary btn-sm">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
                     <span data-i18n="btn_listen">Listen (வாசி)</span>

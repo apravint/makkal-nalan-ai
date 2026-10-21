@@ -25,14 +25,21 @@ jobs:
       - name: Accept Android SDK Licenses & Install Build Tools
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "platforms;android-34" "build-tools;34.0.0" || true
 
       - name: Build Unsigned APK
         run: |
           mkdir -p build/gen build/obj build/bin assets/web
           cp -r web/* assets/
           cp -r web/* assets/web/
-          export ANDROID_JAR=$ANDROID_HOME/platforms/android-34/android.jar
+          
+          # Detect highest available android.jar
+          if [ -f "$ANDROID_HOME/platforms/android-35/android.jar" ]; then
+            export ANDROID_JAR=$ANDROID_HOME/platforms/android-35/android.jar
+          else
+            export ANDROID_JAR=$ANDROID_HOME/platforms/android-34/android.jar
+          fi
+          echo "Using Android JAR: $ANDROID_JAR"
           
           echo "=== 1. Compiling Android Resources ==="
           $ANDROID_HOME/build-tools/34.0.0/aapt package -f -m \
@@ -99,17 +106,18 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
         with:
-          tag_name: "v1.0.1"
+          tag_name: "v1.1.0"
           files: MakkalNalan.apk
-          name: "Makkal Nalan AI v1.0.1"
+          name: "Makkal Nalan AI v1.1.0"
           body: |
-            ## 🏛️ Makkal Nalan AI - Universal Compatibility Release v1.0.1 (மக்கள் நலன்)
+            ## 🏛️ Makkal Nalan AI v1.1.0 (மக்கள் நலன்)
             
-            Fixed device compatibility across all modern Android versions (Android 7.0 - 15+):
-            - **Explicit SDK Versioning**: `minSdkVersion="24"`, `targetSdkVersion="34"`.
-            - **Clean DEX Packaging**: Recompiled bytecode with Java 8 compatibility and D8 Dexing.
-            - **Full V1, V2, and V3 Dual Scheme Signatures**: 4-byte ZipAligned.
-            - **Bilingual Interface**: தமிழ் (Tamil) and English.
-            - **100% Offline & Universal Ready**.
+            Major feature and ecosystem upgrade for Android & Web:
+            - **Expanded Welfare Database**: 18 comprehensive state and central schemes across 9 categories (Kalaignar Kanavu Illam, Makkalai Thedi Maruthuvam, Selvamagal Semippu, Thalikku Thangam, PMAY, PM Vishwakarma, AABCS, Vidiyal Payanam, and more).
+            - **Target SDK 35 (Android 15)**: Full edge-to-edge transparent system bars, window insets, and predictive back gestures (`android:enableOnBackInvokedCallback="true"`).
+            - **Bookmark & Pinned Schemes**: Save schemes locally to present at e-Sevai centers or Taluk offices.
+            - **Printable Application Slip**: Print-friendly checklist slip generator.
+            - **Progressive Web App (PWA)**: Offline service worker, manifest, and live GitHub Pages web edition.
+            - **Universal V1, V2, and V3 Dual Scheme Signatures**: 4-byte ZipAligned.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
