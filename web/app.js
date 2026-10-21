@@ -460,6 +460,18 @@ function updateLanguage(lang) {
     document.getElementById("langLabel").textContent = texts.langLabel;
     document.getElementById("brandSubtitle").textContent = texts.brandSubtitle;
 
+    const heroTitle = document.getElementById("heroHeadline");
+    const heroSub = document.getElementById("heroSub");
+    if (heroTitle && heroSub) {
+        if (lang === "ta") {
+            heroTitle.textContent = "வணக்கம்! உங்களுக்குரிய அரசுத் திட்டங்களை அறிந்திடுங்கள்";
+            heroSub.textContent = "18 சரிபார்க்கப்பட்ட அரசுத் திட்டங்கள், எளிய தகுதி விதிகளுடன், தேவையான ஆவணங்கள் மற்றும் நேரடி இணையதள விண்ணப்ப இணைப்புடன்.";
+        } else {
+            heroTitle.textContent = "Welcome! Discover Your Welfare Rights";
+            heroSub.textContent = "Explore 18 verified Tamil Nadu and Central Government schemes with simple eligibility rules, required document checklists, and direct online application links.";
+        }
+    }
+
     document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
         if (texts[key]) el.textContent = texts[key];
@@ -607,6 +619,22 @@ function initQuiz() {
     const resultsContainer = document.getElementById("eligibilityResults");
     const resultsCountText = document.getElementById("resultsCountText");
 
+    // Option grid chip interactive selection
+    document.querySelectorAll(".option-grid .option-chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+            const grid = chip.closest(".option-grid");
+            const targetSelectId = grid.getAttribute("data-target");
+            const value = chip.getAttribute("data-value");
+            grid.querySelectorAll(".option-chip").forEach(c => c.classList.remove("selected"));
+            chip.classList.add("selected");
+            const select = document.getElementById(targetSelectId);
+            if (select) {
+                select.value = value;
+            }
+            triggerHaptic();
+        });
+    });
+
     checkBtn.addEventListener("click", () => {
         const age = document.getElementById("quizAge").value;
         const occupation = document.getElementById("quizOccupation").value;
@@ -628,8 +656,8 @@ function initQuiz() {
 
         resultsContainer.classList.remove("hidden");
         resultsCountText.textContent = currentLang === "ta" 
-            ? `நீங்கள் பெறக்கூடிய ${matched.length} அரசுத் திட்டங்கள் கண்டறியப்பட்டன`
-            : `Found ${matched.length} Government Schemes Matching Your Profile`;
+            ? `🎉 நீங்கள் பெறக்கூடிய ${matched.length} அரசுத் திட்டங்கள் கண்டறியப்பட்டன`
+            : `🎉 Found ${matched.length} Government Schemes Matching Your Profile`;
 
         renderSchemes(matched, "eligibleSchemesGrid");
         resultsContainer.scrollIntoView({ behavior: "smooth" });

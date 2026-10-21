@@ -65,6 +65,17 @@
         <main class="content-area">
             <!-- TAB 1: SCHEMES EXPLORER -->
             <section id="schemesTab" class="tab-pane active">
+                <!-- Hero Welcome Banner -->
+                <div class="hero-banner">
+                    <h2 class="hero-headline" id="heroHeadline">வணக்கம்! Discover Your Welfare Rights</h2>
+                    <p class="hero-sub" id="heroSub">Explore 18 verified Tamil Nadu and Central Government schemes with simple eligibility rules, required document checklists, and direct online application links.</p>
+                    <div class="hero-metrics">
+                        <span class="hero-metric-pill">🏛️ 18 Verified Schemes</span>
+                        <span class="hero-metric-pill">💰 Up to ₹3.5L Benefits</span>
+                        <span class="hero-metric-pill">🔒 100% Free & Open</span>
+                    </div>
+                </div>
+
                 <!-- Search & Filter Bar -->
                 <div class="search-filter-card card">
                     <div class="search-input-wrapper">
@@ -102,30 +113,106 @@
                     <div class="quiz-form">
                         <div class="form-group">
                             <label data-i18n="quiz_q_age">1. What is your age group?</label>
-                            <select id="quizAge">
-                                <option value="student">Below 18 years (School Student)</option>
-                                <option value="youth" selected>18 - 25 years (College / Higher Studies)</option>
-                                <option value="adult">26 - 59 years (Working / Business / Farming)</option>
-                                <option value="senior">60+ years (Senior Citizen)</option>
+                            <div class="option-grid" data-target="quizAge">
+                                <div class="option-chip" data-value="student">
+                                    <span class="chip-icon">🎒</span>
+                                    <span class="chip-label">Below 18</span>
+                                    <span class="chip-sub">School Student</span>
+                                </div>
+                                <div class="option-chip selected" data-value="youth">
+                                    <span class="chip-icon">🎓</span>
+                                    <span class="chip-label">18 - 25</span>
+                                    <span class="chip-sub">College / Youth</span>
+                                </div>
+                                <div class="option-chip" data-value="adult">
+                                    <span class="chip-icon">💼</span>
+                                    <span class="chip-label">26 - 59</span>
+                                    <span class="chip-sub">Working / Family</span>
+                                </div>
+                                <div class="option-chip" data-value="senior">
+                                    <span class="chip-icon">👴</span>
+                                    <span class="chip-label">60+</span>
+                                    <span class="chip-sub">Senior Citizen</span>
+                                </div>
+                            </div>
+                            <select id="quizAge" class="hidden-select">
+                                <option value="student">Below 18 years</option>
+                                <option value="youth" selected>18 - 25 years</option>
+                                <option value="adult">26 - 59 years</option>
+                                <option value="senior">60+ years</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label data-i18n="quiz_q_occupation">2. What is your occupation / status?</label>
-                            <select id="quizOccupation">
-                                <option value="student">Student</option>
-                                <option value="farmer">Farmer / Agricultural Worker</option>
-                                <option value="woman_homemaker">Homemaker / Self-Help Group (SHG)</option>
-                                <option value="business">Small Shopkeeper / Self-Employed</option>
-                                <option value="unemployed">Job Seeker / Daily Wage</option>
-                                <option value="retired">Retired / Senior Citizen</option>
+                            <div class="option-grid" data-target="quizOccupation">
+                                <div class="option-chip selected" data-value="student">
+                                    <span class="chip-icon">🎓</span>
+                                    <span class="chip-label">Student</span>
+                                    <span class="chip-sub">Higher Studies</span>
+                                </div>
+                                <div class="option-chip" data-value="woman_homemaker">
+                                    <span class="chip-icon">👩</span>
+                                    <span class="chip-label">Homemaker</span>
+                                    <span class="chip-sub">Head of Family</span>
+                                </div>
+                                <div class="option-chip" data-value="farmer">
+                                    <span class="chip-icon">🌾</span>
+                                    <span class="chip-label">Farmer</span>
+                                    <span class="chip-sub">Agri Landholder</span>
+                                </div>
+                                <div class="option-chip" data-value="business">
+                                    <span class="chip-icon">💼</span>
+                                    <span class="chip-label">Small Business</span>
+                                    <span class="chip-sub">Shop / Artisan</span>
+                                </div>
+                                <div class="option-chip" data-value="unemployed">
+                                    <span class="chip-icon">🛠️</span>
+                                    <span class="chip-label">Job Seeker</span>
+                                    <span class="chip-sub">Daily Wage</span>
+                                </div>
+                                <div class="option-chip" data-value="retired">
+                                    <span class="chip-icon">👴</span>
+                                    <span class="chip-label">Senior</span>
+                                    <span class="chip-sub">Elderly Citizen</span>
+                                </div>
+                            </div>
+                            <select id="quizOccupation" class="hidden-select">
+                                <option value="student" selected>Student</option>
+                                <option value="woman_homemaker">Homemaker</option>
+                                <option value="farmer">Farmer</option>
+                                <option value="business">Small Business</option>
+                                <option value="unemployed">Job Seeker</option>
+                                <option value="retired">Senior</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label data-i18n="quiz_q_income">3. Annual Family Income:</label>
-                            <select id="quizIncome">
-                                <option value="bpl">Below ₹1,00,000 / BPL (Green Ration Card)</option>
+                            <div class="option-grid" data-target="quizIncome">
+                                <div class="option-chip" data-value="bpl">
+                                    <span class="chip-icon">🟢</span>
+                                    <span class="chip-label">Below ₹1 Lakh</span>
+                                    <span class="chip-sub">BPL / Green Card</span>
+                                </div>
+                                <div class="option-chip selected" data-value="low">
+                                    <span class="chip-icon">🟡</span>
+                                    <span class="chip-label">₹1L - ₹2.5 Lakhs</span>
+                                    <span class="chip-sub">Subsidies Eligible</span>
+                                </div>
+                                <div class="option-chip" data-value="mid">
+                                    <span class="chip-icon">🔵</span>
+                                    <span class="chip-label">₹2.5L - ₹5 Lakhs</span>
+                                    <span class="chip-sub">General Group</span>
+                                </div>
+                                <div class="option-chip" data-value="high">
+                                    <span class="chip-icon">🟣</span>
+                                    <span class="chip-label">Above ₹5 Lakhs</span>
+                                    <span class="chip-sub">Non-Subsidized</span>
+                                </div>
+                            </div>
+                            <select id="quizIncome" class="hidden-select">
+                                <option value="bpl">Below ₹1,00,000</option>
                                 <option value="low" selected>₹1,00,000 - ₹2,50,000</option>
                                 <option value="mid">₹2,50,000 - ₹5,00,000</option>
                                 <option value="high">Above ₹5,00,000</option>
@@ -134,7 +221,19 @@
 
                         <div class="form-group">
                             <label data-i18n="quiz_q_location">4. Residence State:</label>
-                            <select id="quizLocation">
+                            <div class="option-grid" data-target="quizLocation">
+                                <div class="option-chip selected" data-value="tamilnadu">
+                                    <span class="chip-icon">🏛️</span>
+                                    <span class="chip-label">Tamil Nadu</span>
+                                    <span class="chip-sub">State + Central</span>
+                                </div>
+                                <div class="option-chip" data-value="all_india">
+                                    <span class="chip-icon">🇮🇳</span>
+                                    <span class="chip-label">All India / Other</span>
+                                    <span class="chip-sub">Central Schemes</span>
+                                </div>
+                            </div>
+                            <select id="quizLocation" class="hidden-select">
                                 <option value="tamilnadu" selected>Tamil Nadu</option>
                                 <option value="all_india">Central Govt / All India</option>
                             </select>
